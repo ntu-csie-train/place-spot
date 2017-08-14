@@ -1,6 +1,19 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 
+class PlaceItem extends React.Component {
+  render() {
+    return (
+      <div className="item">
+        <i className="large youtube middle aligned icon"></i>
+        <div className="content">
+          <a className="header">{this.props.place}</a>
+        </div>
+      </div>
+    )
+  }
+}
+
 class App extends React.Component {
   render() {
     return (
@@ -10,7 +23,7 @@ class App extends React.Component {
             <i className="hand spock icon"></i>
             <div className="content">
               Search the place
-        </div>
+            </div>
           </h2>
           <div className="ui action input">
             <input id="urlText" type="text" placeholder="Search..." />
@@ -18,18 +31,14 @@ class App extends React.Component {
           </div>
           <div className="ui horizontal divider">
             place-spot
-      </div>
+          </div>
           <div id="resultList" className="ui relaxed divided list">
-            <div className="item">
-              <i className="large youtube middle aligned icon"></i>
-              <div className="content">
-                <a className="header">Taipei 101</a>
-              </div>
-            </div>
+            <PlaceItem place="Taipei 101" />
+            <PlaceItem place="NTU" />
+            <PlaceItem place="師大夜市" />
           </div>
         </div>
       </div>
-
     )
   }
 }
