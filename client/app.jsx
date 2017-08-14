@@ -1,6 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import request from 'superagent';
+const React = require('react');
+const ReactDOM = require('react-dom');
+const request = require('superagent');
 
 class PlaceItem extends React.Component {
   render() {
