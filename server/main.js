@@ -22,6 +22,10 @@ app.get('/', function (req, res) {
   res.sendFile(path.resolve(__dirname, '../views', 'search.html'))
 })
 
+app.get('/template', function (req, res) {
+  res.sendFile(path.resolve(__dirname, '../views', 'search-without-react.html'))
+})
+
 app.post('/query-exp', function (req, res) {
   let query = req.query
   let body = req.body
