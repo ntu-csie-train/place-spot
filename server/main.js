@@ -18,6 +18,17 @@ app.use('/static', express.static(path.resolve(__dirname, '../static')))
 
 app.set('view engine', 'ejs')
 
+// in-memory datastore, data init
+
+app.set('history', [{
+  place: 'Taipei 101',
+  result: {
+    formatted_address: '110台灣台北市信義區信義路五段7號台北101',
+    lat: 25.0339639,
+    lng: 121.5644722,
+  }
+}]);
+
 app.get('/', function (req, res) {
   res.sendFile(path.resolve(__dirname, '../views', 'search.html'))
 })
@@ -35,11 +46,17 @@ app.post('/query-exp', function (req, res) {
 })
 
 app.get('/api/history/:id', function (req, res) {
-  let query = req.query
-  let id = req.params.id;
-  res.send('[/api/history/:id]' +
-    `query = ${JSON.stringify(query)}` +
-    `id = ${id}`)
+  let id = req.params.id
+  let history = app.get('history');
+  if (id >= history.length) {
+    res.json({})
+  } else {
+    res.json(history[id])
+  }
+})
+
+app.get('/api/history', function (req, res) {
+  res.json(app.get('history'))
 })
 
 app.get('/api/search-place', function (req, res) {
@@ -50,6 +67,10 @@ app.get('/api/search-place', function (req, res) {
     function (error, response, body) {
       let result = getAddressAndLocation(JSON.parse(body))
       res.json(result);
+
+      let history = app.get('history')
+      history.push({ place: req.query.place, result })
+      app.set('history', history)
     });
 });
 // http://localhost:3000/search-place?place=ntu
