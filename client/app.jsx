@@ -45,7 +45,7 @@ class PlaceItemList extends React.Component {
         {
           this.state.places.map(function (value, index) {
             return <PlaceItem key={index} place={value.place}
-            address={value.result.formatted_address} />
+              address={value.result.formatted_address} />
           })
         }
       </div>
@@ -75,6 +75,7 @@ class App extends React.Component {
       .end(function (error, response) {
         let result = JSON.parse(response.text)
         console.log(result)
+        self.placeItemList.update()
       })
   }
 
@@ -97,7 +98,11 @@ class App extends React.Component {
           <div className="ui horizontal divider">
             place-spot
           </div>
-          <PlaceItemList />
+          <PlaceItemList ref={
+            (placeItemList) => {
+              this.placeItemList = placeItemList
+            }
+          } />
         </div>
       </div>
     )
