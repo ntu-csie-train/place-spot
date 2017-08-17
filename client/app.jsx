@@ -9,6 +9,7 @@ class PlaceItem extends React.Component {
         <i className="large youtube middle aligned icon"></i>
         <div className="content">
           <a className="header">{this.props.place}</a>
+          <div className="description">{this.props.address}</div>
         </div>
       </div>
     )
@@ -43,7 +44,8 @@ class PlaceItemList extends React.Component {
       <div id="resultList" className="ui relaxed divided list">
         {
           this.state.places.map(function (value, index) {
-            return <PlaceItem key={index} place={value.place} />
+            return <PlaceItem key={index} place={value.place}
+            address={value.result.formatted_address} />
           })
         }
       </div>
@@ -90,7 +92,7 @@ class App extends React.Component {
             <input id="urlText" type="text" placeholder="Search..."
               onChange={this.handleChange.bind(this)} />
             <button id="searchButton" className="ui blue button"
-              onClick={this.bind(this)}>Search</button>
+              onClick={this.send.bind(this)}>Search</button>
           </div>
           <div className="ui horizontal divider">
             place-spot
