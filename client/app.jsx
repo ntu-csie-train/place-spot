@@ -52,6 +52,30 @@ class PlaceItemList extends React.Component {
 }
 
 class App extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      searchPlace: ''
+    }
+  }
+
+  handleChange(event) {
+    this.setState({ searchPlace: event.target.value })
+  }
+
+  send() {
+    let self = this;
+    let url = 'http://localhost:3000/api/search-place';
+    request
+      .get(url)
+      .query({ place: this.state.searchPlace })
+      .end(function (error, response) {
+        let result = JSON.parse(response.text)
+        console.log(result)
+      })
+  }
+
   render() {
     return (
       <div className="ui middle aligned center aligned grid">
@@ -63,8 +87,10 @@ class App extends React.Component {
             </div>
           </h2>
           <div className="ui action input">
-            <input id="urlText" type="text" placeholder="Search..." />
-            <button id="searchButton" className="ui blue button">Search</button>
+            <input id="urlText" type="text" placeholder="Search..."
+              onChange={this.handleChange.bind(this)} />
+            <button id="searchButton" className="ui blue button"
+              onClick={this.bind(this)}>Search</button>
           </div>
           <div className="ui horizontal divider">
             place-spot
