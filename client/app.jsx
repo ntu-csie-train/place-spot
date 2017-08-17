@@ -1,5 +1,6 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
+const request = require('superagent');
 
 class PlaceItem extends React.Component {
   render() {
@@ -15,12 +16,25 @@ class PlaceItem extends React.Component {
 }
 
 class PlaceItemList extends React.Component {
+
+  update() {
+    let url = 'http://localhost:3000/api/history';
+    request
+      .get(url)
+      .end(function (error, response) {
+        let result = JSON.parse(response.text)
+        console.log(result)
+      })
+  }
+
   render() {
+    this.update()
     return (
       <div id="resultList" className="ui relaxed divided list">
         <PlaceItem place="Taipei 101" />
         <PlaceItem place="NTU" />
         <PlaceItem place="師大夜市" />
+        <PlaceItem place="公館夜市" />
       </div>
     )
   }
