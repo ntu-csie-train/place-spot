@@ -16,25 +16,36 @@ class PlaceItem extends React.Component {
 }
 
 class PlaceItemList extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      places: []
+    }
+  }
+
+  componentDidMount() {
+    this.update()
+  }
 
   update() {
+    let self = this;
     let url = 'http://localhost:3000/api/history';
     request
       .get(url)
       .end(function (error, response) {
         let result = JSON.parse(response.text)
-        console.log(result)
+        self.setState({ places: result })
       })
   }
 
   render() {
-    this.update()
     return (
       <div id="resultList" className="ui relaxed divided list">
-        <PlaceItem place="Taipei 101" />
-        <PlaceItem place="NTU" />
-        <PlaceItem place="師大夜市" />
-        <PlaceItem place="公館夜市" />
+        {
+          this.state.places.map(function (value, index) {
+            return <PlaceItem key={index} place={value.place} />
+          })
+        }
       </div>
     )
   }
