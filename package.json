@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress"
   },
-  "author": "",
+  "author": "Kuan-Hung (ggm) Kuo",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.17.2",
