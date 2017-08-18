@@ -5,7 +5,7 @@ module.exports = {
   entry: './client/app.jsx',
   output: {
     filename: 'app.js',
-    path: path.resolve(__dirname, 'static/build')
+    path: path.resolve(__dirname, 'static', 'build')
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -14,7 +14,6 @@ module.exports = {
     loaders: [
       {
         test: /\.js|jsx$/,
-        include: [path.resolve(__dirname, 'client')],
         loader: 'babel-loader'
       }
     ]
