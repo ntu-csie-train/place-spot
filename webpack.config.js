@@ -19,12 +19,4 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    // new webpack.optimize.UglifyJsPlugin({ minimize: true })
-  ],
-  node: {
-    net: 'empty',
-    tls: 'empty',
-    fs: 'empty',
-  }
 };

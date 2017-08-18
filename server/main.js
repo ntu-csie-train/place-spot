@@ -37,14 +37,6 @@ app.get('/template', function (req, res) {
   res.sendFile(path.resolve(__dirname, '../views', 'search-without-react.html'))
 })
 
-app.post('/query-exp', function (req, res) {
-  let query = req.query
-  let body = req.body
-  res.send('[routing from query-exp]' +
-    `query = ${JSON.stringify(query)}` +
-    `body = ${JSON.stringify(body)}`)
-})
-
 app.get('/api/history/:id', function (req, res) {
   let id = req.params.id
   let history = app.get('history');
@@ -59,6 +51,7 @@ app.get('/api/history', function (req, res) {
   res.json(app.get('history'))
 })
 
+// http://localhost:3000/search-place?place=ntu
 app.get('/api/search-place', function (req, res) {
   let place = encodeURI(req.query.place);
 
@@ -73,8 +66,8 @@ app.get('/api/search-place', function (req, res) {
       app.set('history', history)
     });
 });
-// http://localhost:3000/search-place?place=ntu
 
+// http://localhost:3000/search-nearby?lat=25.0339639&lng=121.5644722
 app.get('/api/search-nearby', function (req, res) {
   let lat = req.query.lat
   let lng = req.query.lng
@@ -95,8 +88,8 @@ app.get('/api/search-nearby', function (req, res) {
       res.json(body)
     })
 })
-// http://localhost:3000/search-nearby?lat=25.0339639&lng=121.5644722
 
+// http://localhost:3000/home?top=newbrand
 app.get('/home', function (req, res) {
   let top = req.query.top;
   res.render('home', {
@@ -108,7 +101,6 @@ app.get('/home', function (req, res) {
   })
 })
 
-// http://localhost:3000/home?top=newbrand
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, function () {

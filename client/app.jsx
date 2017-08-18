@@ -2,6 +2,10 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const request = require('superagent');
 
+const getApiUrl = () => {
+  return `${window.location.protocol}//${window.location.host}`;
+}
+
 class PlaceItem extends React.Component {
   render() {
     return (
@@ -30,7 +34,7 @@ class PlaceItemList extends React.Component {
 
   update() {
     let self = this;
-    let url = 'http://localhost:3000/api/history';
+    let url = `${getApiUrl()}/api/history`;
     request
       .get(url)
       .end(function (error, response) {
@@ -68,7 +72,7 @@ class App extends React.Component {
 
   send() {
     let self = this;
-    let url = 'http://localhost:3000/api/search-place';
+    let url = `${getApiUrl()}/api/search-place`;
     request
       .get(url)
       .query({ place: this.state.searchPlace })
@@ -108,13 +112,6 @@ class App extends React.Component {
     )
   }
 }
-
-/*
-ReactDOM.render(
-  <h1>Hello, world!</h1>,
-  document.getElementById('root')
-);
-*/
 
 ReactDOM.render(
   <App />,
